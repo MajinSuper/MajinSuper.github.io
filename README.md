@@ -1,0 +1,2 @@
+# MajinSuper.github.io
+Homepage
