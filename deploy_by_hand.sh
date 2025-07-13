@@ -3,9 +3,6 @@
 # 忽略错误
 set -e  #有错误抛出错误
 
-# pnpm 安装
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-
 # 构建
 pnpm run docs:build  #然后执行打包命令
  
