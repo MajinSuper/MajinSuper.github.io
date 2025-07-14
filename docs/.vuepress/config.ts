@@ -16,12 +16,12 @@ import { plumeTheme } from 'vuepress-theme-plume'
 export default defineUserConfig({
   base: '/',
   lang: 'zh-CN',
-  title: 'majin个人博客',
+  title: 'majin',
   description: '',
 
   head: [
     // 配置站点图标
-    ['link', { rel: 'icon', type: 'image/png', href: './images/头像.jpg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/docs/.vuepress/images/头像.jpg' }],
   ],
 
   bundler: viteBundler(),

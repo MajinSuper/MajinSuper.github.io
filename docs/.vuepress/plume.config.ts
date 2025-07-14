@@ -50,7 +50,7 @@ export default defineThemeConfig({
    */
   profile: {
     // avatar: 'https://theme-plume.vuejs.press/plume.png',
-    name: 'Majin个人博客',
+    name: 'Majin',
     description: '',
     // circle: true,
     // location: '',
