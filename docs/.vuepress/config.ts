@@ -180,5 +180,16 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/guide/features/encryption/
      */
     // encrypt: {},
+    notes:[
+      {
+        dir: 'transformer',
+        link: '/tansformer/',
+        sidebar: 'auto'
+      },{
+        dir: 'LLMs',
+        link: '/LLMs/',
+        sidebar: 'auto'
+      }
+    ]
   }),
 })
