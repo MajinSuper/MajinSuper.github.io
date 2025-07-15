@@ -33,12 +33,12 @@ const LLMs_Note = defineNoteConfig({
   sidebar: 'auto',
 })
 
-const Transofmer_Note = defineNoteConfig({
-  dir: 'Transofmer',
+const Transformer_Note = defineNoteConfig({
+  dir: 'transformer',
   // `dir` 所指向的目录中的所有 markdown 文件，其 permalink 需要以 `link` 配置作为前缀
   // 如果 前缀不一致，则无法生成侧边栏。
   // 所以请确保  markdown 文件的 permalink 都以 `link` 开头
-  link: '/Transofmer',
+  link: '/transformer',
   // 根据文件结构自动生成侧边栏
   sidebar: 'auto',
 })
@@ -51,5 +51,5 @@ const Transofmer_Note = defineNoteConfig({
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [LLMs_Note,Transofmer_Note],
+  notes: [LLMs_Note,Transformer_Note],
 })
