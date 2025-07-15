@@ -181,21 +181,10 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/guide/features/encryption/
      */
     // encrypt: {},
-    notes:{
-      dir: '/notes/', // 声明所有笔记的目录，(默认配置，通常您不需要声明它)
-      link: '/', // 声明所有笔记默认的链接前缀， 默认为 '/' （默认配置，通常您不需要声明它）
-      notes: [
-        {
-          dir: 'transformer',
-          link: '/tansformer/',
-          sidebar: 'auto'
-        },
-        {
-          dir: 'LLMs',
-          link: '/LLMs/',
-          sidebar: 'auto'
-        }
-      ]
-    }
-  }),
+
+
+  }),    
+  
+  notes
+  
 })
