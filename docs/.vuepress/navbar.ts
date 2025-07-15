@@ -13,6 +13,9 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: 'transformer', link: '/notes/transformer/README.md' }]
+    items: [
+      { text: 'transformer', link: '/notes/transformer/README.md' },
+      { text: 'LLMs', link: '/notes/LLMs/README.md' }
+    ]
   },
 ])
