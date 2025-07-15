@@ -22,7 +22,7 @@ export default defineUserConfig({
 
   head: [
     // 配置站点图标
-    ['link', { rel: 'icon', type: 'image/png', href: '/docs/.vuepress/images/头像.jpg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/public/images/头像.jpg' }],
   ],
 
   bundler: viteBundler(),
@@ -181,16 +181,16 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/guide/features/encryption/
      */
     // encrypt: {},
-    notes:[
-      {
-        dir: 'transformer',
-        link: '/tansformer/',
-        sidebar: 'auto'
-      },{
-        dir: 'LLMs',
-        link: '/LLMs/',
-        sidebar: 'auto'
-      }
-    ]
+    // notes:[
+    //   {
+    //     dir: 'transformer',
+    //     link: '/tansformer/',
+    //     sidebar: 'auto'
+    //   },{
+    //     dir: 'LLMs',
+    //     link: '/LLMs/',
+    //     sidebar: 'auto'
+    //   }
+    // ]
   }),
 })
