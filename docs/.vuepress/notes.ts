@@ -49,7 +49,7 @@ const LLMs_Note = defineNoteConfig({
  * （DemoNote 为参考示例，如果不需要它，请删除）
  */
 export default defineNotesConfig({
-  dir: 'notes',
+  dir: '/notes/',
   link: '/',
   notes: [LLMs_Note],
 })
