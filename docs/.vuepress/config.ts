@@ -12,7 +12,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
-// import notes from './notes'
+import notes from './notes'
 
 export default defineUserConfig({
   base: '/',
@@ -29,28 +29,7 @@ export default defineUserConfig({
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({
-    notes:{
-      dir: '/notes/',
-      link: '/', // 声明所有笔记默认的链接前缀， 默认为 '/' （默认配置，通常您不需要声明它）
-      notes: [
-        // 每个笔记都是 `notes` 数组中的一个对象
-        {
-          // 声明笔记的目录，相对于 `notes.dir`，这里表示 `notes/typescript` 目录
-          dir: 'LLMs',
-          // 声明笔记的链接前缀，与 `notes.link` 拼接，这里表示 `/typescript/`
-          // 笔记内的所有文章会以 `/typescript/` 作为访问链接前缀。
-          link: '/LLMs/',
-          // 配置 笔记侧边导航栏，用于导航向笔记内的所有文档
-          // 声明为 `auto` 的，将根据目录结构自动生成侧边栏导航
-          sidebar: 'auto'
-        },
-        {
-          dir: 'transformer',
-          link: '/transformer/',
-          sidebar: 'auto'
-        }
-      ]
-    },
+    notes,
 
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
     // hostname: 'https://your_site_url',
