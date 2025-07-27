@@ -22,7 +22,7 @@ export default defineUserConfig({
 
     head: [
         // 配置站点图标
-        ['link', {rel: 'icon', type: 'image/jpg', href: '/images/头像.jpg'}],
+        ['link', {rel: 'icon', type: 'image/jpg', href: '/blogger.jpg'}],
     ],
 
     bundler: viteBundler(),
