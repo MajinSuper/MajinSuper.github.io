@@ -34,13 +34,19 @@ export default defineUserConfig({
      profile: {
       name: 'majin',
       // description: '描述文字，座右铭/签名',
-      avatar: '/blogger.png',
+      avatar: '/blogger.jpg',
       location: 'BeiJing, China',
       // organization: '您的组织',
       circle: true, // 是否为圆形头像
       layout: 'right', // 个人信息在左侧还是右侧，'left' | 'right'
     },
-
+    // 社交链接
+    social: [
+      { icon: 'github', link: 'https://github.com/majinsuper' },
+      { icon: 'email', link: 'majinc96@163.com'}
+      // ... more
+      ]
+    }),
     // notes,
 
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
