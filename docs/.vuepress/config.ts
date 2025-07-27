@@ -30,6 +30,17 @@ export default defineUserConfig({
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({
+
+     profile: {
+      name: 'majin',
+      // description: '描述文字，座右铭/签名',
+      avatar: '/blogger.png',
+      location: 'BeiJing, China',
+      // organization: '您的组织',
+      circle: true, // 是否为圆形头像
+      layout: 'right', // 个人信息在左侧还是右侧，'left' | 'right'
+    },
+
     // notes,
 
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
