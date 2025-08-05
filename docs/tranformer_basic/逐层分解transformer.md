@@ -13,7 +13,7 @@ tags:
 ![img.png](/images/transformer介绍.png)
 :::
 
-transformer架构如上如图所示，是由Encoder和Decoder两部分组成，在原论文中每个部分包含6个block。
+**transformer架构**如上如图所示，是由==Encoder==和==Decoder==两部分组成，在原论文中每个部分包含==6个block==。
 
 ### 1.2 基本流程
 1. **分词**：对输入文本进行分词 `string -> [token_1,token_2 ... token_n]`
