@@ -44,12 +44,12 @@ Decoder部分：
 
   
 ### 1.2 基本流程
-1. **分词**：对输入文本进行分词 `$string -> [token_1,token_2 ... token_n]$`
-2. **词嵌入**：每个词使用向量表达 `$[token_1,token_2 ... token_n] -> [x_1,x_2 ... x_n]$`
-3. **位置编码**：每个词的词嵌入 + 其位置编码 `$[x_1,x_2 ... x_n] + [pe_1, pe_2 ... pe_n] -> [\hat{x}_1, \hat{x}_2... \hat{x}_n]$`
-4. **Encoder**: 输入给Encoder进行计算 `$[\hat{x}_1, \hat{x}_2... \hat{x}_n] -> [z_1, z_2 ... z_n]$`
-5. **Decoder**: Encoder计算结果再传给Decoder `$[z_1, z_2 ... z_n] -> y_1$`
-6. **Decoder**: Encoder+Decoder结果继续传给Decoder `$[z_1, z_2 ... z_n,y_1] -> y_2$`
+1. **分词**：对输入文本进行分词: string -> [$token_1$,$token_2$ ... $token_n$]
+2. **词嵌入**：每个词使用向量表达: $[token_1,token_2 ... token_n]$ -> $[x_1,x_2 ... x_n]$
+3. **位置编码**：每个词的词嵌入+其位置编码: $[x_1,x_2 ... x_n] + [pe_1, pe_2 ... pe_n]$ -> $[\hat{x}_1, \hat{x}_2... \hat{x}_n]$
+4. **Encoder**: 输入给Encoder进行计算: $[\hat{x}_1, \hat{x}_2... \hat{x}_n]$ -> $[z_1, z_2 ... z_n]$
+5. **Decoder**: Encoder计算结果再传给Decoder: $[z_1, z_2 ... z_n]$ -> $y_1$
+6. **Decoder**: Encoder+Decoder结果继续传给Decoder: $[z_1, z_2 ... z_n,y_1]$ -> y_2$
 7. 重复直至结束
 
 ## 2. Transformer的输入
@@ -128,7 +128,9 @@ $W^O_i$ \in R^{\{d_v,d_v\}}$
 
 ### 3.3 Point-wise FeedForward Networks
 
-单独作用在每个position的输入上。比如：输入是一个$n \times d_v$，作用在每个$ 1 \times d_v$。
+==何为Point-wise？==
+
+单独作用在==输入的每个position==上，==并非针对整个输入==。比如：输入是一个$n \times d_v$，作用在每个$1 \times d_v$。
 
 ::: center
 ![FFN.png](/images/FFN.png)
