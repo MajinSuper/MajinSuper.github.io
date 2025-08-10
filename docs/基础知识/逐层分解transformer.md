@@ -79,6 +79,8 @@ $PE_{(pos,2i+1)}=cos(pos / 1000^{2i/d})$
 其中,$pos$为==句中的位置==，$d$表示==位置嵌入的维度==（等于==词嵌入的维度==），
 $2i$表示位置嵌入的==偶数维度==，$2i+1$表示==奇数维度==，且$2i<d$,$2i+1<d$
 
+除了fixed方式，也可以采用learnable的位置编码。在原文中==效果一样==
+但最终还是选择了fixed方式，因为这种方法能够==外推序列长度==，使其能处理==超过训练过程的最长序列==
 
 ::: tip 常见面试题
 :::
@@ -87,11 +89,13 @@ $2i$表示位置嵌入的==偶数维度==，$2i+1$表示==奇数维度==，且$2
 :::
 
 ::: details 问题2. 设计使用sin、cos的原因是什么？
+回答：
+更容易学习到==相对位置==的表达
 :::
 
 ::: details 问题3. 这种位置编码的好处和坏处分别有什么？
 :::
-
+ 
 
 ## 3. Transformer的架构 
 
@@ -107,7 +111,7 @@ query和key是同一大小的维度$d_k$，value的维度是$d_v$
 ::: center
 $Attention(Q,K,V) = softmax(\frac{Q*K^T}{\sqrt{d_k}})*V$
 :::
-其中，$Q$的维度为$n \times d_k$, $K$的维度为$m \times d_k$，$V$的维度为$m \time d_v$
+其中，$Q$的维度为$n \times d_k$, $K$的维度为$m \times d_k$，$V$的维度为$m \times d_v$
 
 
 ::: tip 常见面试题
@@ -125,7 +129,7 @@ $Attention(Q,K,V) = softmax(\frac{Q*K^T}{\sqrt{d_k}})*V$
 ![img.png](/images/MHA.png)
 :::
 
-QKV进行h次不同的投射($d_?$->$d_?/h$)，产生Q_i,K_i,V_i(i=1...h)。计算自注意力之后的结果，进行==拼接==。
+QKV进行h次不同的投射($d_?$->$d_?/h$)，产生$Q_i,K_i,V_i$(i=1...h)。计算自注意力之后的结果，进行==拼接==。
 
 
 **计算公式**：
@@ -138,7 +142,7 @@ $head_i = Attention(Q*W^Q_i,K*W^K_i,V*W^V_i)$
 Q的维度$n,d_k$,K的维度$m,d_k$,V的维度是$m,d_v$
 
 $W^Q_i \in R^{\{d_k,d_k/h\}}$，$W^K_i \in R^{\{d_k,d_k/h\}}$，$W^V_i \in R^{\{d_v,d_v/h\}}$
-$W^O_i$ \in R^{\{d_v,d_v\}}$
+$W^O_i \in R^{\{d_v,d_v\}}$
 :::
 
 ### 3.3 Point-wise FeedForward Networks
@@ -157,8 +161,8 @@ $W^O_i$ \in R^{\{d_v,d_v\}}$
 $FFN(\hat{x}) = Linear(ReLU(Linear(x)))$
 :::
 
-第一个$Linear \in R{\{d_model,d_model * 4\}}$
-第二个$Linear \in R{\{d_model * 4,d_model\}}$
+第一个$Linear \in R{\{d_{model},d_{model} * 4\}}$
+第二个$Linear \in R{\{d_{model} * 4,d_{model}\}}$
 
 
 ::: tip 常见面试问题
