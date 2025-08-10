@@ -3,6 +3,7 @@ title: 逐层分解transformer
 tags:
   - transformer
   - 基础
+createTime: 2025-08-10 09:44:31
 permalink: /article/transformer_all_in_one/
 ---
 
@@ -58,7 +59,13 @@ Decoder部分：
 ### 2.1 词嵌入
 词嵌入的方式有很多，可以是word2vec、Glove等算法训练得到，也可以是**learnable**，与transformer一同训练得到
 
+在论文中，word embedding还乘以了$\sqrt{d}$
 
+::: tip 常见面试题
+:::
+
+::: detials 问题1. 为什么乘以$\sqrt{d}$
+:::
 
 ### 2.2 位置编码 💖
 标准的位置编码是
@@ -140,7 +147,9 @@ $W^O_i$ \in R^{\{d_v,d_v\}}$
 
 单独作用在==输入的每个position==上，==并非针对整个输入==。比如：输入是一个$n \times d_v$，作用在每个$1 \times d_v$。
 
- <img src="/images/FFN.png" style="zoom:50%" alt="Point-wise FeedForward Networks"  />
+::: center
+ <img src="/images/FFN.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
+:::
 
 **计算公式：**
 
