@@ -34,24 +34,44 @@ tansformer又快又好：
 ::: details 问题2. transformer为什么可以并行化？
 回答：
 这里，并行化是指某条==样本内==所有输入，并行化计算。
-Encoder部分：
+
+**Encoder部分：**
 - QKV：QKV矩阵的获取，是同时获取的，一次针对（样本内的）所有输入
 - Attn：attention矩阵计算是并行的，一次针对所有输入
 - MHA：多头之间也是并行的
 - FNN：也是一次针对所有输入
-Decoder部分：
+
+**Decoder部分：**
 - ==训练阶段==：引入了"teacher force"的概念，每个时刻==不依赖上一时刻的输出==，而==依赖正确样本==。
 - ==测试阶段==：在测试阶段，不存在真实label，采用==自回归==的方式，还是==依赖上一时刻的输出==。
 :::
 
   
 ### 1.2 基本流程
+
+**训练流程：**
+1. **分词**：对两段文本，分别进行分词: 
+ - $string^1$ -> [$token_1^1$,$token_2^1$ ... $token_n^1$],
+ - $string^2$ -> [$BOS$] + [$token_1^2$,$token_2^2$ ... $token_m^2$]
+2. **词嵌入**：两端文本的分词结果，分别使用向量表达
+ - [$token_1^1$,$token_2^1$ ... $token_n^1$] -> $[x_1,x_2...x_n]$, 
+ - [$BOS$] + [$token_1^2$,$token_2^2$ ... $token_m^2$] -> $[[BOS],y_1,y_2...y_m]$
+3. **位置编码**：词嵌入+位置编码: 
+ - $[x_1,x_2...x_n] + [pe_1, pe_2 ... pe_n]$ 
+ - $[[BOS],y_1,y_2...y_m] + [pe_1, pe_2 ... pe_m,pe_{m+1}]$ 
+4. **Encoder**: seq1 输入给Encoder进行计算
+ - $[x_1,x_2...x_n] + [pe_1, pe_2 ... pe_n]$ -> $[z_1, z_2 ... z_n]$
+5. **Decoder**: seq2和Encoder结果，输出预测结果: 
+ - $[z_1, z_2 ... z_n]$ ,  $[[BOS],y_1,y_2...y_m] + [pe_1, pe_2 ... pe_m,pe_{m+1}]$  -> $[\hat{y_1},\hat{y_2}...\hat{y_m},[EOS]]$
+6. 计算loss
+
+**推理流程：**
 1. **分词**：对输入文本进行分词: string -> [$token_1$,$token_2$ ... $token_n$]
 2. **词嵌入**：每个词使用向量表达: $[token_1,token_2 ... token_n]$ -> $[x_1,x_2 ... x_n]$
 3. **位置编码**：每个词的词嵌入+其位置编码: $[x_1,x_2 ... x_n] + [pe_1, pe_2 ... pe_n]$ -> $[\hat{x}_1, \hat{x}_2... \hat{x}_n]$
 4. **Encoder**: 输入给Encoder进行计算: $[\hat{x}_1, \hat{x}_2... \hat{x}_n]$ -> $[z_1, z_2 ... z_n]$
 5. **Decoder**: Encoder计算结果再传给Decoder: $[z_1, z_2 ... z_n]$ -> $y_1$
-6. **Decoder**: Encoder+Decoder结果继续传给Decoder: $[z_1, z_2 ... z_n,y_1]$ -> y_2$
+6. **Decoder**: Encoder+Decoder结果继续传给Decoder: $[z_1, z_2 ... z_n,y_1]$ -> $y_2$
 7. 重复直至结束
 
 ## 2. Transformer的输入
@@ -189,8 +209,8 @@ Linear：
 :::
 
 ::: details 问题1：《Attention is All Your Nedd》中的一些超参数设置
-Encoder和Decoder是多少层？ ---- 均为==6层==
-模型使用的维度是多少？ ---- ==$d_model$512维==
-使用的是Pre-Norm还是Post-Norm? ---- ==Post-Norm==, $LayerNorm(x+SubLayer(x))$
-模型使用的头数是多少？ ---- 8个头
+- Encoder和Decoder是多少层？ ---- 均为==6层==
+- 模型使用的模型维度是多少？FFN隐层使用的维度使多少？ ---- ==$d_model$512维==，==$d_{ff}$是2048维
+- 使用的是Pre-Norm还是Post-Norm? ---- ==Post-Norm==, $LayerNorm(x+SubLayer(x))$
+- 模型使用的头数是多少？ ---- ==8个头==
 :::
