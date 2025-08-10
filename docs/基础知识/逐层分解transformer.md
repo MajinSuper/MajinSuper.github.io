@@ -58,6 +58,8 @@ Decoder部分：
 ### 2.1 词嵌入
 词嵌入的方式有很多，可以是word2vec、Glove等算法训练得到，也可以是**learnable**，与transformer一同训练得到
 
+
+
 ### 2.2 位置编码 💖
 标准的位置编码是
 
