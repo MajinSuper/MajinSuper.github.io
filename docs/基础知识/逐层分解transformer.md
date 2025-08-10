@@ -52,10 +52,10 @@ tansformer又快又好：
 **训练流程：**
 1. **分词**：对两段文本，分别进行分词: 
  - $string^1$ -> [$token_1^1$,$token_2^1$ ... $token_n^1$],
- - $string^2$ -> [$BOS$] + [$token_1^2$,$token_2^2$ ... $token_m^2$]
+ - $string^2$ -> ==[$BOS$]== + [$token_1^2$,$token_2^2$ ... $token_m^2$]
 2. **词嵌入**：两端文本的分词结果，分别使用向量表达
  - [$token_1^1$,$token_2^1$ ... $token_n^1$] -> $[x_1,x_2...x_n]$, 
- - [$BOS$] + [$token_1^2$,$token_2^2$ ... $token_m^2$] -> $[[BOS],y_1,y_2...y_m]$
+ - ==[$BOS$]== + [$token_1^2$,$token_2^2$ ... $token_m^2$] -> $[y_{bos},y_1,y_2...y_m]$
 3. **位置编码**：词嵌入+位置编码: 
  - $[x_1,x_2...x_n] + [pe_1, pe_2 ... pe_n]$ 
  - $[[BOS],y_1,y_2...y_m] + [pe_1, pe_2 ... pe_m,pe_{m+1}]$ 
