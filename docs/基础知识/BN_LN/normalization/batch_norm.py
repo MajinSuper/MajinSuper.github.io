@@ -117,6 +117,6 @@ def _eval_3d_BN():
 
 
 if __name__ == '__main__':
-    _eval_2d_BN()
+    # _eval_2d_BN()
 
     _eval_3d_BN()

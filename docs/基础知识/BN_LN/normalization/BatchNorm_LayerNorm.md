@@ -11,9 +11,9 @@ tags:
 对==神经元的输入==进行处理，使其符合==标准分布==
 
 ::: center
-$ \bar{z} = \frac{z-\mu}{\sigma} $
+$\bar{z} = \frac{z-\mu}{\sigma}$
 
-$ \hat{z} = w * \bar{z} + b$
+$\hat{z} = w * \bar{z} + b$
 
 其中，$\mu$、$\sigma$分别为均值、标准差，$w$、$b$为可学习参数
 :::
@@ -38,8 +38,8 @@ $ \hat{z} = w * \bar{z} + b$
 | BN vs LN      |     BatchNorm     | LayerNorm |
 |---------------|:-----------------:|----------:|
 | 位置          |    一般是输出后，激活前     |     $1600 |
-| col 2 is      | 训练时Batch Size不能太小 |       $12 |
-| zebra stripes |     are neat      |        $1 |
+| 公式      | 训练时Batch Size不能太小 |       $12 |
+| 实现 |     are neat      |        $1 |
 
 ### BatchNorm
 沿某一feature维度进行归一化
