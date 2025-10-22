@@ -50,14 +50,14 @@ permalink: /article/introduce_mcp/
 
 #### 工作流程
 
-STEP 1: user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
+<Badge type="tip" text="STEP 1:" /> user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
 
 ![MCP](/images/mcp/MCP_workflow_part1.png)
 
-STEP 2: Host请求LLM，判断使用哪个工具；借助MCP Client，要求调用MCP server的对应工具；MCP server使用工具，返回结果
+<Badge type="tip" text="STEP 2:" /> Host请求LLM，判断使用哪个工具；借助MCP Client，要求调用MCP server的对应工具；MCP server使用工具，返回结果
 ![MCP](/images/mcp/MCP_workflow_part2.png)
 
-STEP 3:Host拿MCP server的结果，请求LLM；返回最终的结果，给用户
+<Badge type="tip" text="STEP 3:" />Host拿MCP server的结果，请求LLM；返回最终的结果，给用户
 ![MCP](/images/mcp/MCP_workflow_part3.png)
 
 
