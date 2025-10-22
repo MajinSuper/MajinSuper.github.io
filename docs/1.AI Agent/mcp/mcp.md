@@ -9,7 +9,7 @@ permalink: /article/introduce_mcp/
 ---
 
 ## MCP
-### 介绍
+### 一、介绍
 
 - 全称Model Context Protocol，模型上下文协议
 - 起源于2024年，由Anthropic提出。将==AI应用==链接到==外部数据/工具/服务==
@@ -39,31 +39,40 @@ permalink: /article/introduce_mcp/
 | 使用场景 | 工具多，一次编写到处运行；<br>安全要求高 | 工具少，需要确定的工具；<br>无专门的安全要求 | 
 :::
 
-### MCP系统架构
+### 二、MCP系统架构
 ![MCP系统架构](/images/mcp/mcp_structure.png)
 
-#### 三个概念
+#### 2.1 三个概念
 
 - MCP Host：实际的AI应用、AI Agent
 - MCP Client：AI Agent==内部==的一个功能模块，负责连接管理、错误处理。与MCP Server建立一对一的链接。
 - MCP Server：==外部==服务程序，提供外部数据、工具、服务的访问
 
-#### 工作流程
-
-<Badge type="tip" text="STEP 1:" /> user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
+#### 2.2 工作流程
+::: note
+**STEP 1:** user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
+:::
 
 ![MCP](/images/mcp/MCP_workflow_part1.png)
 
-<Badge type="tip" text="STEP 2:" /> Host请求LLM，判断使用哪个工具；借助MCP Client，要求调用MCP server的对应工具；MCP server使用工具，返回结果
+::: note
+**STEP 2:** Host请求LLM，判断使用哪个工具；借助MCP Client，要求调用MCP server的对应工具；MCP server使用工具，返回结果
+:::
 ![MCP](/images/mcp/MCP_workflow_part2.png)
 
-<Badge type="tip" text="STEP 3:" />Host拿MCP server的结果，请求LLM；返回最终的结果，给用户
+::: note
+**STEP 3:**Host拿MCP server的结果，请求LLM；返回最终的结果，给用户
+:::
 ![MCP](/images/mcp/MCP_workflow_part3.png)
 
+#### 2.3 数据传输
+1. Stdio：标准输入输出，借助OS/kernel的stdin、stdout、stderror
+2. HTTP over SSE（已被替代）：借助网络远程连接，持久连接
+3. Streamable HTTP：text/event-stream
 
-### MCP实践
+### 三、MCP实践
 
-#### MCP server开发
+#### 3.1 MCP server开发 <Badge type="tip" text="MCP server开发" />
 
 ```python
 # mcp_server.py
@@ -78,19 +87,19 @@ async def add_number(a:int, b: int) -> TextContent:
 
 @mcp.tool()
 async def get_weather(city:str) -> TextContent:
-    url,API_KEY = "","sk-"
-    params = {"q":city,"appid":API_KEY,"units":"metric"}
+    url, API_KEY = "", "sk-"
+    params = {"q": city, "appid": API_KEY, "units": "metric"}
     # 访问服务的url
     async with httpx.AsyncClient() as client:
-        resp = client.get(url,params=params)
+        resp = client.get(url, params=params)
         data = resp.json()
-        return TextContent(type="text",text=f"{city}的天气是：{data["weather"]}")
+        return TextContent(type="text", text=f"{city}的天气是：{data["weather"]}")
 
 if __name__ == "__main__":
     mcp.run()
 ```
 
-#### MCP server调试
+#### 3.2 MCP server调试 <Badge type="tip" text="MCP server调试" />
 
 - 执行`mcp dev mcp_server.py`
 - 访问给出的链接，会进入调试页面
