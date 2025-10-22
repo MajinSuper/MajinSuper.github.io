@@ -73,13 +73,13 @@ permalink: /article/introduce_mcp/
 from mcp.server.fastmcp import FastMCP
 from mcp.types import TextContent
 
-mcp = FastMCP("Custom MCP server") // [!code highlight]
+mcp = FastMCP("Custom MCP server") # [!code highlight]
 
-@mcp.tool() // [!code highlight]
+@mcp.tool() # [!code highlight]
 async def add_number(a:int, b: int) -> TextContent:
-    return TextContent(type="text",text=f"结果：{a+b}") // [!code highlight]
+    return TextContent(type="text",text=f"结果：{a+b}") # [!code highlight]
 
-@mcp.tool() // [!code highlight]
+@mcp.tool() # [!code highlight]
 async def get_weather(city:str) -> TextContent:
     url, API_KEY = "", "sk-"
     params = {"q": city, "appid": API_KEY, "units": "metric"}
@@ -87,10 +87,10 @@ async def get_weather(city:str) -> TextContent:
     async with httpx.AsyncClient() as client:
         resp = client.get(url, params=params)
         data = resp.json()
-        return TextContent(type="text", text=f"{city}的天气是：{data["weather"]}")
+        return TextContent(type="text", text=f"{city}的天气是：{data["weather"]}") # [!code highlight]
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio") // [!code highlight]
+    mcp.run(transport="stdio") # [!code highlight]
 ```
 
 #### 3.2 MCP server调试
