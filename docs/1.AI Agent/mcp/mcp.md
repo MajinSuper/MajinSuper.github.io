@@ -44,9 +44,9 @@ permalink: /article/introduce_mcp/
 
 #### 2.1 三个概念
 
-- MCP Host：实际的AI应用、AI Agent
-- MCP Client：AI Agent==内部==的一个功能模块，负责连接管理、错误处理。与MCP Server建立一对一的链接。
-- MCP Server：==外部==服务程序，提供外部数据、工具、服务的访问
+- **MCP Host**：实际的AI应用、AI Agent
+- **MCP Client**：AI Agent==内部==的一个功能模块，负责连接管理、错误处理。与MCP Server建立一对一的链接。
+- **MCP Server**：==外部==服务程序，提供外部数据、工具、服务的访问
 
 #### 2.2 工作流程
 <Badge type="tip" text="STEP 1:" /> user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
@@ -101,4 +101,68 @@ if __name__ == "__main__":
 - 点击某个tool，输出合适的参数即可调试tool效果
 ![dev mcp](/images/mcp/dev_mcp.png)
 
-#### 3.3 MCP server调试
+#### 3.3 MCP client
+以官方的[client代码](https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/clients/simple-chatbot/mcp_simple_chatbot/main.py#L330)为例
+
+```python
+# 只保留主要代码
+def start(self) -> None:
+    # 初始化server
+    for server in self.servers:
+        await server.initialize()
+    
+    # 获取所有的tool列表
+    all_tools = []
+    for server in self.servers:
+        tools = await server.list_tools()
+    
+    # 将所有的tool描述拼成格式化字符串
+    tools_desc = "\n".join([tool.format_for_llm() for tool in all_tools])
+
+     system_message = (
+        "You are a helpful assistant with access to these tools:\n\n"
+        f"{tools_description}\n"
+        "Choose the appropriate tool based on the user's question. "
+        "If no tool is needed, reply directly.\n\n"
+        "IMPORTANT: When you need to use a tool, you must ONLY respond with "
+        "the exact JSON object format below, nothing else:\n"
+        "{\n"
+        '    "tool": "tool-name",\n'
+        '    "arguments": {\n'
+        '        "argument-name": "value"\n'
+        "    }\n"
+        "}\n\n"
+        "After receiving a tool's response:\n"
+        "1. Transform the raw data into a natural, conversational response\n"
+        "2. Keep responses concise but informative\n"
+        "3. Focus on the most relevant information\n"
+        "4. Use appropriate context from the user's question\n"
+        "5. Avoid simply repeating the raw data\n\n"
+        "Please use only the tools that are explicitly defined above."
+    )
+
+    messages = [{"role": "system", "content": system_message}]
+
+    while True:
+        # 假设这里已经处理了用户消息输入.
+        messages.append({"role": "user", "content": user_input})
+ ​
+        # 将 system_message 和用户消息输入一起发送给 LLM
+        llm_response = self.llm_client.get_response(messages)
+
+        # 处理 LLM 的输出（如果有 tool call 则执行对应的工具）
+        result = await self.process_llm_response(llm_response)
+
+        # 如果 result 与 llm_response 不同，说明执行了 tool call （有额外信息了）
+        # 则将 tool call 的结果重新发送给 LLM 进行处理。
+        if result != llm_response:
+             messages.append({"role": "assistant", "content": llm_response})
+             messages.append({"role": "system", "content": result})
+ ​
+             final_response = self.llm_client.get_response(messages)
+             logging.info("\nFinal response: %s", final_response)
+             messages.append({"role": "assistant", "content": final_response})
+         # 否则代表没有执行 tool call，则直接将 LLM 的输出返回给用户。
+         else:
+             messages.append({"role": "assistant", "content": llm_response})  
+```
