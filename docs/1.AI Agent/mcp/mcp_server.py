@@ -31,4 +31,4 @@ async def get_weather(city:str) -> TextContent:
 
 if __name__ == "__main__":
     # asyncio.run(main())
-    mcp.run()
+    mcp.run(transport="stdio")

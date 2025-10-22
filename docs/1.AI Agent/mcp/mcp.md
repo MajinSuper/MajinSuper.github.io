@@ -42,13 +42,13 @@ permalink: /article/introduce_mcp/
 ### 二、MCP系统架构
 ![MCP系统架构](/images/mcp/mcp_structure.png)
 
-#### 2.1 <Badge type="tip" text="三个概念" />
+#### 2.1 三个概念
 
 - MCP Host：实际的AI应用、AI Agent
 - MCP Client：AI Agent==内部==的一个功能模块，负责连接管理、错误处理。与MCP Server建立一对一的链接。
 - MCP Server：==外部==服务程序，提供外部数据、工具、服务的访问
 
-#### 2.2 <Badge type="tip" text="工作流程" />
+#### 2.2 工作流程
 <Badge type="tip" text="STEP 1:" /> user任务，Host借助MCP Client，要求MCP server列出所有的工具；MCP server返回所有的可用工具
 
 ![MCP](/images/mcp/MCP_workflow_part1.png)
@@ -59,27 +59,27 @@ permalink: /article/introduce_mcp/
 <Badge type="tip" text="STEP 3:" />Host拿MCP server的结果，请求LLM；返回最终的结果，给用户
 ![MCP](/images/mcp/MCP_workflow_part3.png)
 
-#### 2.3 <Badge type="tip" text="数据传输" />
+#### 2.3 数据传输
 1. Stdio：标准输入输出，借助OS/kernel的stdin、stdout、stderror
 2. HTTP over SSE（已被替代）：借助网络远程连接，持久连接
 3. Streamable HTTP：text/event-stream
 
 ### 三、MCP实践
 
-#### 3.1 <Badge type="tip" text="MCP server开发" />
+#### 3.1 MCP server开发
 
 ```python
 # mcp_server.py
 from mcp.server.fastmcp import FastMCP
 from mcp.types import TextContent
 
-mcp = FastMCP("Custom MCP server")
+mcp = FastMCP("Custom MCP server") // [!code highlight]
 
-@mcp.tool()
+@mcp.tool() // [!code highlight]
 async def add_number(a:int, b: int) -> TextContent:
-    return TextContent(type="text",text=f"结果：{a+b}")
+    return TextContent(type="text",text=f"结果：{a+b}") // [!code highlight]
 
-@mcp.tool()
+@mcp.tool() // [!code highlight]
 async def get_weather(city:str) -> TextContent:
     url, API_KEY = "", "sk-"
     params = {"q": city, "appid": API_KEY, "units": "metric"}
@@ -90,13 +90,15 @@ async def get_weather(city:str) -> TextContent:
         return TextContent(type="text", text=f"{city}的天气是：{data["weather"]}")
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="stdio") // [!code highlight]
 ```
 
-#### 3.2 <Badge type="tip" text="MCP server调试" />
+#### 3.2 MCP server调试
 
 - 执行`mcp dev mcp_server.py`
 - 访问给出的链接，会进入调试页面
 - 点击"List Tools"，会列出该server下所有的tool
 - 点击某个tool，输出合适的参数即可调试tool效果
 ![dev mcp](/images/mcp/dev_mcp.png)
+
+#### 3.3 MCP server调试
