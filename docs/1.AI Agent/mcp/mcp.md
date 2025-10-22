@@ -76,3 +76,4 @@ if __name__ == "__main__":
 - 访问给出的链接，会进入调试页面
 - 点击"List Tools"，会列出该server下所有的tool
 - 点击某个tool，输出合适的参数即可调试tool效果
+![dev mcp](/images/dev_mcp.png)
