@@ -166,3 +166,12 @@ def start(self) -> None:
          else:
              messages.append({"role": "assistant", "content": llm_response})  
 ```
+
+
+====
+
+### 新理解
+
+- 工具执行不在agent应用端，而由mcp server负责执行
+- mcp最大的好处是解耦，不需要在agent端维护很多工具的执行和解析（联网、知识库……）
+- 同时改动工具时，不需要重启agent应用（更改prompt和agent tools需要重启），只需要重启mcp服务即可

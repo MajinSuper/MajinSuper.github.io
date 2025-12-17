@@ -27,7 +27,7 @@ messages = [{"role": "system", "content": system_prompt},
 response = client.chat.completions.create(
     model="deepseek-r1:1.5b",
     messages=messages,
-
+    response_format={ "type": "json_object" }, ###############################
 )
 
 print(json.loads(response.choices[0].message.content))
