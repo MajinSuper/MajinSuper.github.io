@@ -1,10 +1,10 @@
 import json
 from openai import OpenAI
 from pydantic import BaseModel
-from pydantic import dataclass
+# from pydantic import dataclass
+from dataclasses import dataclass
 
-@dataclass
-class QuestionAnswer:
+class QuestionAnswer(BaseModel):
     question: str
     answer: str
 
@@ -31,11 +31,19 @@ user_prompt = "Which is the longest river in the world? The Nile River."
 messages = [{"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}]
 
-response = client.chat.completions.create(
+response = client.responses.parse(
     model="deepseek-r1:1.5b",
     messages=messages,
+    # response_format=QuestionAnswer,
     text_format=QuestionAnswer,
 )
 
+
 print("raw response:", response.choices[0].message.content)
 print("parsed response:", response.choices[0].message.parsed)
+
+# raw response: {
+# "question": "Which is the longest river in the world?",
+# "answer": "The Nile River."
+# }
+# parsed response:  question='Which is the longest river in the world?' answer='The Nile River.'

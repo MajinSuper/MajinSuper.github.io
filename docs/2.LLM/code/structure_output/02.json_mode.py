@@ -27,17 +27,8 @@ messages = [{"role": "system", "content": system_prompt},
 response = client.chat.completions.create(
     model="deepseek-r1:1.5b",
     messages=messages,
-
+    response_format={ "type": "json_object" }, ###############################
 )
 
-print("raw response:", response.choices[0].message.content)
-
-json_raw = response.choices[0].message.content.strip("```json\n").strip("\n```")
-json_parsed = json.loads(json_raw)
-print("parsed response:", json_parsed)
-
-# raw response: {
-#     "question": "What is one of the longest rivers worldwide, known for its vastness and numerous natural features.",
-#     "answer": "The Nile River"
-# }
-# parsed response: {'question': 'What is one of the longest rivers worldwide, known for its vastness and numerous natural features.', 'answer': 'The Nile River'}
+print(json.loads(response.choices[0].message.content))
+#  {'question': 'Which is the longest river in the world? The Nile River.', 'answer': 'The Nile River.'}
