@@ -22,10 +22,10 @@ permalink: /article/introduce_RAG/
 ::: tip 常见面试题
 :::
 
-::: detials 1. 如何向量化？模型怎么选的？有没有自己训练过？
+::: details 1. 如何向量化？模型怎么选的？有没有自己训练过？
 :::
 
-::: detials 2. 向量库有了解吗？向量库是怎么选择的？
+::: details 2. 向量库有了解吗？向量库是怎么选择的？
 :::
 
 #### （在线）召回
@@ -93,7 +93,7 @@ permalink: /article/introduce_RAG/
 ::: tip 常见面试题
 :::
 
-::: detials 1. 为什么需要重排？直接用召回的相似度不行吗？
+::: details 1. 为什么需要重排？直接用召回的相似度不行吗？
 片段相似 ≠ 语义相关。
 比如：transformer为什么需要PE？ 检索到：transformer是一种基于self-attention的模型结构，被广泛应用于NLP。
 两者片段相似，但是语义是不相关的
