@@ -44,3 +44,66 @@ permalink: /article/introduce_RAG/
     - 实体 -> 文本：实体属性，周围一跳的信息描述（模板）
     - 文本检索引擎：ElasticSearch
 
+#### （在线）重排
+
+1. 重排可以==融合多路召回的结果==
+
+2. 在单路召回情况下，依然能==提升准确率==。相关≠可用（RAG需要的是能不能解决问题，而不是是否相关）
+
+    具体来说，召回返回的分数是$P(doc \in 同一主题|query)$ ，重排返回的分数是$P(doc 解决 query|query)$
+
+    再比如，原始query：`transformer为什么需要PE？`，
+
+    召回1：`transformer是一种基于self-attention结构的模型，广泛应用于XXX`
+
+    召回2：`由于self-attention对输入顺序不敏感，必须通过引入PE来注入位置信息`
+
+    召回1的召回分数很高（主题匹配高）、但没法回答问题（无关问题）
+
+    召回2的召回分数较低（主题匹配低）、但可以回答问题（命中问题）
+
+
+
+
+#### （在线）生成
+
+将召回+重排后的片段，拼接prompt+原始问题，输入给大模型，输出最终答案。
+
+
+::: tip 常见面试题
+:::
+
+::: details 1. 为什么需要重排？直接用召回的相似度不行吗？
+片段相似 ≠ 语义相关。
+比如：transformer为什么需要PE？ 检索到：transformer是一种基于self-attention的模型结构，被广泛应用于NLP。
+两者片段相似，但是语义是不相关的
+
+:::
+
+::: details 2.怎么提高召回准确率和覆盖率？
+使用多路召回、过滤、rerank
+:::
+
+::: details 3.怎么改进embedding模型？怎么训练？
+:::
+
+::: details 4.怎么改进rerank模型？怎么训练？
+:::
+
+
+### 评估RAG系统
+
+- 召回率（recall）：能不能从库中尽可能的把相关的召回来。“召回十个，里面有多少个是相关的 ” 除以 “库中有多少个相关的”
+- 精确率（precision）：召回的东西，有多少是相关的。“召回十个，里面有多少个是相关的 ” 除以 “召回了多少个（十个）”
+- 响应时延（Latency）：提问到生成答案的时间
+
+
+
+### 参考：
+
+- [Bilibili: RAG 工作机制详解——一个高质量知识库背后的技术全流程](https://www.bilibili.com/video/BV1JLN2z4EZQ/?spm_id_from=333.337.search-card.all.click&vd_source=748cb51f7cdac32f173ae1c569bfb80d)
+- [Github: RAG系统：数据越多效果越好吗？](https://github.com/netease-youdao/QAnything/wiki/RAG%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E8%B6%8A%E5%A4%9A%E6%95%88%E6%9E%9C%E8%B6%8A%E5%A5%BD%E5%90%97%EF%BC%9F)
+- [知乎：embedding那些事](https://zhuanlan.zhihu.com/p/29949362142)
+- [知乎：rerank那些事](https://zhuanlan.zhihu.com/p/29977179977)
+- [飞书：混合检索和重排序改进RAG](https://xuqiwei1986.feishu.cn/wiki/Mmt0wpQo6iDHAyky5fzcZbvBnih)
+
