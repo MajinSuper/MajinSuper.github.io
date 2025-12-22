@@ -69,12 +69,19 @@ permalink: /article/introduce_RAG/
 :::
 
 ::: center
- <img src="/images/RAG/rerank_cross_encode.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
+ <img src="/images/RAG/Rerank_cross_encode.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
 :::
 
 - Embedding模型本质上是双编码器，文本内部没有任何交互，只有最后输出结果时，两个结果才会唯一一次交互。
 - ReRank模型是Cross-encoder的模型，一开始就通过transformer进行交互。
 
+|        | 召回                                     | 重排                                   |
+| ------ | ---------------------------------------- | -------------------------------------- |
+| 关注点 | 刻画相似度，”跟query是不是相关“          | 刻画能用性，”能不能解决query“          |
+| 原理   | embedding模型+向量相似度                 | cross-encoder => 分数                  |
+| 优点   | 成本低；快（预计算好一半，在线计算很少） | 准确                                   |
+| 缺点   | 不准确                                   | 成本高；慢（相比召回，没有预计算内容） |
+| 场景   | 在大规模后选中，初步筛选                 | 在部分候选上，进一步精挑细选           |
 
 
 
