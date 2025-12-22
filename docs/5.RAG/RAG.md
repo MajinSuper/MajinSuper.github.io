@@ -63,7 +63,8 @@ permalink: /article/introduce_RAG/
     召回2的召回分数较低（主题匹配低）、但可以回答问题（命中问题）
 
 
-
+![Embedding_bi_encoder]("/images/RAG/Embedding_bi_encoder.png")
+![Rerank_cross_encoder]("/images/RAG/Rerank_cross_encoder.png")
 
 
 
