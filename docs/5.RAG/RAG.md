@@ -66,7 +66,7 @@ permalink: /article/introduce_RAG/
 
 ::: center
  <img src="/images/RAG/Embedding_bi_encoder.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
- <img src="/images/RAG/Rerank_cross_encode.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
+ <img src="/images/RAG/Rerank_cross_encoder.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
 :::
 
 
