@@ -67,12 +67,12 @@ permalink: /article/introduce_RAG/
 ::: center
  <img src="/images/RAG/Embedding_bi_encoder.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
 :::
-- Embedding模型本质上是双编码器，文本内部没有任何交互，只有最后输出结果时，两个结果才会唯一一次交互。
-
 
 ::: center
  <img src="/images/RAG/rerank_cross_encode.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
 :::
+
+- Embedding模型本质上是双编码器，文本内部没有任何交互，只有最后输出结果时，两个结果才会唯一一次交互。
 - ReRank模型是Cross-encoder的模型，一开始就通过transformer进行交互。
 
 |        | 召回                                     | 重排                                   |
@@ -88,9 +88,6 @@ permalink: /article/introduce_RAG/
 #### （在线）生成
 
 将召回+重排后的片段，拼接prompt+原始问题，输入给大模型，输出最终答案。
-
----
-
 
 
 ::: tip 常见面试题
@@ -125,7 +122,6 @@ permalink: /article/introduce_RAG/
 ### 参考：
 
 - [Bilibili: RAG 工作机制详解——一个高质量知识库背后的技术全流程](https://www.bilibili.com/video/BV1JLN2z4EZQ/?spm_id_from=333.337.search-card.all.click&vd_source=748cb51f7cdac32f173ae1c569bfb80d)
-
 - [Github: RAG系统：数据越多效果越好吗？](https://github.com/netease-youdao/QAnything/wiki/RAG%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E8%B6%8A%E5%A4%9A%E6%95%88%E6%9E%9C%E8%B6%8A%E5%A5%BD%E5%90%97%EF%BC%9F)
 - [知乎：embedding那些事](https://zhuanlan.zhihu.com/p/29949362142)
 - [知乎：rerank那些事](https://zhuanlan.zhihu.com/p/29977179977)
