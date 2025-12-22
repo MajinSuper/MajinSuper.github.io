@@ -62,8 +62,8 @@ permalink: /article/introduce_RAG/
 
     召回2的召回分数较低（主题匹配低）、但可以回答问题（命中问题）
 
-![Embedding_bi_encoder]("/images/rag/Embedding_bi_encoder.png")
-![Rerank_cross_encoder]("/images/rag/Rerank_cross_encoder.png")
+![Embedding_bi_encoder](/images/rag/Embedding_bi_encoder.png)
+![Rerank_cross_encoder](/images/rag/Rerank_cross_encoder.png)
 
 - Embedding模型本质上是双编码器，文本内部没有任何交互，只有最后输出结果时，两个结果才会唯一一次交互。
 - ReRank模型是Cross-encoder的模型，一开始就通过transformer进行交互。
