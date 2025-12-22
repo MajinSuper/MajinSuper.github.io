@@ -64,10 +64,7 @@ permalink: /article/introduce_RAG/
 
 
 
-::: center
- <img src="/images/RAG/Embedding_bi_encoder.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
- <img src="/images/RAG/Rerank_cross_encoder.png" style="zoom:30%" alt="Point-wise FeedForward Networks"  />
-:::
+
 
 
 - Embedding模型本质上是双编码器，文本内部没有任何交互，只有最后输出结果时，两个结果才会唯一一次交互。
